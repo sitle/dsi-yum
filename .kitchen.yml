@@ -1,15 +1,61 @@
 ---
-driver:
-  name: vagrant
+driver_plugin: vagrant
+driver_config:
+    require_chef_omnibus: 11.16.4
+
+platforms:
+  - name: redhat
+    driver:
+      vagrantfile_erb: Vagrantfile.erb
+      box: redhat-5-chef
+      box_url: http://bit.ly/1qBrpXj
+      network:
+        - ['private_network', {ip: '172.28.128.13'}]
+      customize:
+        memory: 512
+        cpus: 1
+  - name: oel
+    driver:
+      vagrantfile_erb: Vagrantfile.erb
+      box: oel-6-chef
+      box_url: http://bit.ly/1weDdiJ
+      network:
+        - ['private_network', {ip: '172.28.128.14'}]
+      customize:
+        memory: 512
+        cpus: 1
+  - name: centos
+    driver:
+      vagrantfile_erb: Vagrantfile.erb
+      box: centos-6-chef
+      box_url: http://bit.ly/1weDdiJ
+      network:
+        - ['private_network', {ip: '172.28.128.15'}]
+      customize:
+        memory: 512
+        cpus: 1
 
 provisioner:
   name: chef_solo
 
-platforms:
-  - name: ubuntu-12.04
-  - name: centos-6.4
-
 suites:
   - name: default
+    data_bags_path: 'test/integration/default/data_bags'
+    encrypted_data_bag_secret_key_path: 'test/integration/default/encrypted_data_bag_secret'
     run_list:
+      - recipe[dsi-yum::default]
     attributes:
+      dsi-yum:
+        repository_name: 'dsi'
+        description: 'DSI Internal Repository'
+        make_cache: false
+        verify_ssl: false
+        redhat:
+          repository: 'http://yum.rhel.repository.dev'
+          key_name: 'RPM-GPG-KEY-redhat-release'
+        oracle:
+          repository: 'http://yum.oel.repository.dev'
+          key_name: 'RPM-GPG-KEY'
+        centos:
+          repository: 'http://yum.centos.repository.dev'
+          key_name: 'RPM-GPG-KEY-CentOS-6'
