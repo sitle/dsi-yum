@@ -1,6 +1,7 @@
 # dsi-yum-cookbook
 
-TODO: Enter the cookbook description here.
+Ce cookbook installe et configure les dépôts internes YUM pour
+l'ensemble des distributions basés sur Redhat.
 
 ## Supported Platforms
 
