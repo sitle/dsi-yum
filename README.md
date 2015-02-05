@@ -5,7 +5,6 @@ l'ensemble des distributions basés sur Redhat.
 
 ## Supported Platforms
 
-TODO: List your supported platforms.
 
 ## Attributes
 
