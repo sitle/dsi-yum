@@ -22,6 +22,3 @@ Include `dsi-yum` in your node's `run_list`:
 }
 ```
 
-## License and Authors
-
-Author:: Leonard TAVAE (<leonard.tavae@informatique.gov.pf>)
